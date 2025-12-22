@@ -73,11 +73,11 @@ As configurações ficam em:
 config/db.js
 
 ## 3️⃣ Iniciar o servidor
- ## node index.js
+  node index.js
  
 ## Acesse no navegador:
 
- ## http://localhost:3000
+  http://localhost:3000
 
 ## 🔐 Variáveis de Ambiente (.env)
 
