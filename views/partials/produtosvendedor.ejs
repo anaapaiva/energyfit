@@ -1,0 +1,14 @@
+
+<article
+  class="produto"
+  data-categoria="<%= produto.categoria_id || 'geral' %>"
+>
+  <img
+    src="/uploads/<%= produto.imagem || 'default.webp' %>"
+    alt="<%= produto.nome %>"
+  />
+  <h3><%= produto.nome %></h3>
+  <button class="remove-to-vendor" data-id="<%= produto.id %>" >
+    Remover produto
+  </button>
+</article>
