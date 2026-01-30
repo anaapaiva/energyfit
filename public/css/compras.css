@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   margin: 10px;
   padding: 15px;
@@ -25,3 +26,32 @@
     background-color: #b70000; /* Darker green */
 }
 
+=======
+* {
+  margin: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: black;
+  background-color: white;
+  text-align: center;
+  color: black;
+
+}
+
+#finalizar{
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: large;
+    background-color: #000000; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#finalizar:hover {
+    background-color: #b70000; /* Darker green */
+}
+
+>>>>>>> 928181422bc864ba76942fce13b12b29e71f5201

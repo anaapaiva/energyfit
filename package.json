@@ -20,7 +20,10 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^6.0.0",
+<<<<<<< HEAD
     "better-sqlite3": "^12.6.2",
+=======
+>>>>>>> 928181422bc864ba76942fce13b12b29e71f5201
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
