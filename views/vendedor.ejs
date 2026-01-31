@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastro Produto EnergyFit</title>
+    <style>
+      /* RESET GERAL */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* LAYOUT */
+      body {
+        background: #f2f2f2;
+        padding: 40px 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      /* CAIXA PRINCIPAL */
+      .container {
+        background-color: #ffffff;
+        padding: 35px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        border: 1px solid #e6e6e6;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        transition: 0.3s ease;
+      }
+
+      .produto img {
+        width: 200px; /* largura fixa */
+        height: 200px; /* altura fixa */
+        object-fit: cover; /* evita distorção e recorta proporcionalmente */
+        display: block;
+        margin: 0 auto;
+        border-radius: 6px;
+      }
+
+      .container:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      }
+
+      /* TITULOS */
+      h1 {
+        margin-bottom: 20px;
+        color: #000000;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        color: #444;
+        font-size: 15px;
+      }
+
+      /* FORM LABEL + INPUT */
+      label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        color: #222;
+        font-weight: 600;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 15px;
+        background-color: #fafafa;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #000000;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+        outline: none;
+      }
+
+      /* BOTÕES */
+      button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        background-color: #000000;
+        border: none;
+        color: #fff;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        letter-spacing: 1px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #333333;
+        transform: translateY(-2px);
+      }
+
+      /* LINK LOGOUT */
+      .logout-link {
+        display: inline-block;
+        margin-top: 15px;
+        color: #000000;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      .logout-link:hover {
+        text-decoration: underline;
+      }
+
+      /* MENSAGENS */
+      #mensagem,
+      #product-message {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      /* CARDS */
+      .card {
+        margin-top: 10px;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 15px;
+        border: 1px solid #e6e6e6;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      /* LISTA DE PRODUTOS */
+      #produtos-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* CARD INDIVIDUAL DO PRODUTO */
+      .produto-card {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: 0.2s ease;
+      }
+
+      .produto-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* IMAGEM DO PRODUTO */
+      .produto-card img {
+        width: 100%;
+        max-height: 260px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 14px;
+        background: #f7f7f7;
+      }
+
+      /* BOTÃO DE EXCLUIR */
+      .remove-to-vendor {
+        width: 100%;
+        background-color: #000000;
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        color: #fff;
+        transition: 0.2s ease;
+      }
+
+      .remove-to-vendor:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Painel do Vendedor</h1>
+      <p>
+        Bem-vindo, <strong><%= usuario.nome %></strong>! Selecione uma das
+        opções abaixo:
+      </p>
+
+      <div class="card">
+        <p></p>
+        <!-- cadastro e irá aparecer na tela do vendedor e na principal (index.js)  -->
+        <p><strong>Cadastrar Novo Produto</strong></p>
+
+        <form id="product-form" class="product-form">
+          <input
+            type="text"
+            name="nome"
+            id="product-name"
+            placeholder="Nome do produto"
+            required
+          />
+          <input
+            name="preco"
+            type="number"
+            id="product-price"
+            placeholder="Preço (R$)"
+            step="0.01"
+            required
+          />
+          <input
+            type="text"
+            name="descricao"
+            id="product-description"
+            placeholder="Descrição breve"
+          />
+          <select name="categoria" id="product-category" required>
+            <option value="">Selecione a categoria</option>
+            <option value="leggings">Leggings</option>
+            <option value="tops">Tops</option>
+            <option value="jaquetas">Jaquetas</option>
+            <option value="acessorios">Acessórios</option>
+            <option value="conjuntos">Conjuntos</option>
+            <option value="shorts">Shorts</option>
+            <option value="blusas">Blusas</option>
+          </select>
+
+          <input
+            type="file"
+            id="product-image"
+            accept="image/*"
+            required
+            name="imagem"
+          />
+          <button type="submit" id="submit-button">Adicionar Produto</button>
+        </form>
+
+        <p id="product-message"></p>
+
+        <ul class="product-list" id="product-list"></ul>
+      </div>
+
+      <a href="/api/v1/auth/logout" class="logout-link">Sair</a>
+    </div>
+
+    <div class="container" style="margin-left: 20px">
+      <h1>Produtos Cadastrados</h1>
+
+      <div class="card">
+        <section id="produtos">
+          <div class="produtos" id="produtos-container">
+            <% if (todosProdutos && todosProdutos.length > 0) { %> <%
+            todosProdutos.forEach(produto => { %> <%-
+            include('partials/produtosvendedor', {produto: produto}) %> <% }) %>
+            <% } else { %>
+            <p>Nenhum produto encontrado no momento.</p>
+            <% } %>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      //fazer alterações
+
+      const form = document.getElementById("product-form");
+      const messageEl = document.getElementById("product-message");
+      const submitButton = document.getElementById("submit-button");
+      const productList = document.getElementById("product-list");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        messageEl.textContent = "Enviando, aguarde...";
+        messageEl.className = "";
+        submitButton.disabled = true;
+        //Até aqui
+
+        // 1. Criar FormData
+        // Isso é OBRIGATÓRIO para enviar arquivos
+        const formData = new FormData();
+
+        // 2. Anexar os campos de texto
+        formData.append(
+          "nome",
+          document.getElementById("product-name").value.trim()
+        );
+        formData.append(
+          "preco",
+          document.getElementById("product-price").value
+        );
+        formData.append(
+          "descricao",
+          document.getElementById("product-description").value.trim()
+        );
+        formData.append(
+          "categoria_id",
+          document.getElementById("product-category").value
+        );
+
+        // 3. Anexar o ARQUIVO
+        const imageInput = document.getElementById("product-image");
+        if (imageInput.files.length === 0) {
+          messageEl.textContent = "Erro: Você precisa selecionar uma imagem.";
+          messageEl.className = "error";
+          submitButton.disabled = false;
+          return;
+        }
+        formData.append("imagem", imageInput.files[0]);
+
+        try {
+          // 4. Enviar para a API de Produtos
+          // Note que NÃO definimos 'Content-Type'. O browser
+          // faz isso automaticamente para 'FormData'.
+          const response = await fetch("/api/v1/produtos", {
+            method: "POST",
+            body: formData,
+            // headers: { 'Authorization': 'Bearer ...' } // (Se usássemos token)
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            messageEl.textContent = "Produto cadastrado com sucesso!";
+            messageEl.className = "success";
+            form.reset();
+            // (Opcional) Atualizar a lista de produtos na página
+            // loadProducts();
+            setTimeout(() => {
+              window.location.href = "/vendedor";
+            }, 500);
+          } else {
+            // Pega o erro do servidor (ex: "tipo de arquivo inválido")
+            messageEl.textContent = `Erro: ${data.erro || response.statusText}`;
+            messageEl.className = "error";
+          }
+        } catch (error) {
+          console.error("Erro no fetch:", error);
+          messageEl.textContent = "Erro de conexão com o servidor.";
+          messageEl.className = "error";
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      async function excluirProduto(botao) {
+        try {
+          // [MUDANÇA] Pegamos os dados do banco
+          const id = botao.dataset.id;
+          const resposta = await fetch("/api/v1/produtos/" + id, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+          console.log(resposta);
+          if (resposta.ok) {
+            alert("Produto excluído com sucesso!");
+            // Remover o cartão do produto da interface
+            setTimeout(() => {
+              window.location.href = "/vendedor";
+            }, 500);
+          } else {
+            alert("Erro ao excluir o produto.");
+          }
+        } catch (err) {
+          console.error("Erro ao adicionar ao carrinho:", err);
+        }
+      }
+
+      // Event listener para os botões .add-to-cart (mantido)
+      document.body.addEventListener("click", async function (event) {
+        const botao = event.target.closest(".remove-to-vendor");
+        if (botao) {
+          event.preventDefault();
+          excluirProduto(botao);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualizar Vendas Realizadas</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        color: #222;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .back-btn {
+        background-color: #222;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        background-color: #000;
+      }
+      h1 {
+        font-size: 1.8em;
+        color: #333;
+        text-align: center;
+        flex: 1;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        background-color: #333;
+        color: #fff;
+        margin-bottom: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #000;
+      }
+      @media (max-width: 600px) {
+        .container {
+          margin: 20px;
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="/vendedor" class="back-btn">← Voltar</a>
+        <h1>Vendas Realizadas</h1>
+      </header>
+      
+      <ul id="sales-list">
+        <% if (pedidos && pedidos.length > 0) { %>
+          <% pedidos.forEach(pedido => { %>
+            <li>
+              Pedido <strong>#<%= pedido.id %></strong>
+              (<%= new Date(pedido.criado_em).toLocaleDateString('pt-BR') %>)
+              <br>
+              Cliente: <%= pedido.cliente_nome || 'Não informado' %>
+              <br>
+              Total: <strong>R$ <%= Number(pedido.total).toFixed(2) %></strong>
+              <br>
+              Status: <%= pedido.status %>
+            </li>
+          <% }) %>
+        <% } else { %>
+            <li>Você ainda não possui nenhuma venda registrada.</li>
+        <% } %>
+      </ul>
+
+    </div>
+
+    </body>
+</html>

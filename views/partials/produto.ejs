@@ -1,0 +1,18 @@
+<article
+  class="produto"
+  data-categoria="<%= produto.categoria_id || 'geral' %>"
+>
+  <img
+    src="/uploads/<%= produto.imagem || 'default.webp' %>"
+    alt="<%= produto.nome %>"
+  />
+  <h3><%= produto.nome %></h3>
+  <button
+    class="add-to-cart"
+    data-nome="<%= produto.nome %>"
+    data-preco="<%= produto.preco %>"
+    data-id="<%= produto.id %>"
+  >
+    Adicionar ao carrinho (R$ <%= Number(produto.preco).toFixed(2) %>)
+  </button>
+</article>

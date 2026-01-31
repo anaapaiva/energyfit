@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compras - EnergyFit</title>
+    
+    <link rel="stylesheet" href="/css/energy.css" />
+    <link rel="icon" href="/images/logo.jpg" type="icon" />
+    
+    <style>
+      .item-carrinho {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f1f1f1;
+        padding: 10px;
+        margin: 8px auto;
+        max-width: 500px;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+      }
+
+      .item-carrinho button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .carrinho-container {
+        margin-top: 20px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>EnergyFit</h1>
+    </header>
+
+    <main>
+      <section class="carrinho">
+        <h2>Itens no Carrinho</h2>
+        <div class="carrinho-container"></div>
+        <p
+          id="total-carrinho"
+          style="text-align: center; font-weight: bold"
+        ></p>
+      </section>
+    </main>
+
+    <button
+      id="finalizar-compra"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 260px;
+        margin: 30px auto;
+        padding: 12px;
+        background-color: #25d366;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+      "
+    >
+      <img
+        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"
+        alt="WhatsApp"
+        style="width: 20px; filter: brightness(0) invert(1)"
+      />
+      Finalizar Compra via WhatsApp
+    </button>
+
+    <a
+      href="/"
+      class="voltar"
+      style="
+        display: block;
+        width: 120px;
+        margin: 20px auto;
+        padding: 10px 0;
+        text-align: center;
+        background-color: black;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      "
+    >
+      Voltar
+    </a>
+
+    <script>
+      function atualizarCarrinho() {
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        const container = document.querySelector(".carrinho-container");
+        const totalElement = document.getElementById("total-carrinho");
+
+        container.innerHTML = "";
+        let total = 0;
+
+        carrinho.forEach((produto, index) => {
+          total += produto.preco;
+
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "item-carrinho";
+          itemDiv.innerHTML = `
+          <span>${produto.nome} - R$ ${produto.preco.toFixed(2)}</span>
+        `;
+
+          const btnRemover = document.createElement("button");
+          btnRemover.textContent = "Remover";
+          btnRemover.addEventListener("click", () => {
+            carrinho.splice(index, 1);
+            localStorage.setItem("carrinho", JSON.stringify(carrinho));
+            atualizarCarrinho();
+          });
+
+          itemDiv.appendChild(btnRemover);
+          container.appendChild(itemDiv);
+        });
+
+        totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", atualizarCarrinho);
+
+      // Finalizar compra via WhatsApp
+      document
+        .getElementById("finalizar-compra")
+        .addEventListener("click", () => {
+          const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+          if (carrinho.length === 0) {
+            alert("Seu carrinho está vazio!");
+            return;
+          }
+
+          let mensagem =
+            "Olá! Gostaria de finalizar minha compra com os seguintes itens:%0A";
+          let total = 0;
+
+          carrinho.forEach((produto) => {
+            mensagem += `• ${produto.nome} - R$ ${produto.preco.toFixed(2)}%0A`;
+            total += produto.preco;
+          });
+
+          mensagem += `%0A🧾 Total: R$ ${total.toFixed(2)}%0A`;
+          mensagem += "Aguardo as instruções para pagamento.";
+
+          const numeroWhatsApp = "5537988275969";
+          const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+          window.open(url, "_blank");
+        });
+    </script>
+  </body>
+</html>

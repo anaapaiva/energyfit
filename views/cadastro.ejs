@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cadastro - EnergyFit</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #ffffff; /* fundo branco */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 40px 30px;
+        border-radius: 15px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        border-top: 5px solid #000000; /* barra superior preta */
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15); /* sombra na parte superior */
+        transition: 0.3s ease;
+      }
+
+      .container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        margin-bottom: 25px;
+        color: #000000;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      label {
+        display: block;
+        text-align: left;
+        margin-bottom: 10px;
+        color: #333;
+        font-weight: bold;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        color: #000;
+        transition: all 0.3s ease;
+        appearance: none;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #000000;
+        box-shadow: 0 0 5px rgba(26, 24, 24, 0.5);
+        outline: none;
+      }
+
+      select {
+        background-image: linear-gradient(45deg, transparent 50%, #000000 50%),
+          linear-gradient(135deg, #000000 50%, transparent 50%);
+        background-position: calc(100% - 15px) calc(1em + 2px),
+          calc(100% - 10px) calc(1em + 2px);
+        background-size: 5px 5px, 5px 5px;
+        background-repeat: no-repeat;
+      }
+
+      select:hover {
+        border-color: #000000;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #000000;
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #333333;
+        transform: translateY(-2px);
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #000000;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      #mensagem {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #ff4b2b;
+      }
+    </style>
+  </head>
+
+  <body>
+  <div class="container">
+    <h1>Cadastro</h1>
+    <form id="cadastroForm">
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" name="nome_completo" required />
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required minlength="6" />
+
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" name="tipo" required>
+        <option value="vendedor">Vendedor</option>
+        <option value="admin">Administrador</option>
+      </select>
+      
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <p id="mensagem"></p>
+    <p><a href="/login">Voltar ao Login</a></p>
+  </div>
+  <script src="/js/localStorage.js"></script>
+  </body>
+</html>
